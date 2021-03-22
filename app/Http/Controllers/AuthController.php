@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ConfirmRegistration;
-
+use App\Events\RegistrationProccesed;
+use Event;
 
 class AuthController extends Controller
 {
@@ -37,8 +37,8 @@ class AuthController extends Controller
     {
         $data = $request->validated();
        
-        $this->store($data);
-        //send mail
+        $user = $this->store($data);
+        Event::dispatch(new RegistrationProccesed($user));
         return response()->format('You are registred! Please confirm on your mail.', null, null);
     }
 
@@ -55,7 +55,17 @@ class AuthController extends Controller
         $user->contract_end_date = now()->addYear(); 
         $user->remember_token = Str::random(10);
         $user->save();
-    
+        return $user;
+    }
+
+    public function emailVerification($id)
+    {
+        $user = User::findOrFail($id);
+        $user->verified = true;
+        $user->email_verified_at = now();
+        $user->save();
+        Redirect::to('http://127.0.0.1:8000/api/login');
+        return response()->format('Email verified!', null, null);
     }
     
 }

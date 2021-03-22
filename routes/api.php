@@ -13,4 +13,5 @@ Route::get('/logout', [AuthController::Class, 'logout'])->middleware('auth:api')
 Route::get('/user', [AuthController::class, 'user'])->middleware('auth:api')->name('user');
 Route::get('/user/exportCSV', [ExportController::class, 'exportCSV'])->middleware('auth:api');
 Route::get('/user/exportPDF', [ExportController::class, 'exportPDF'])->middleware('auth:api');
+Route::get('/email/verify/{id}', [AuthController::class, 'emailVerification'])->name('emailVerified');
 
