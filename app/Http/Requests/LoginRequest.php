@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
         $errors = (new ValidationException($validator))->errors();
 
         throw new HttpResponseException(
-            response()->format($errors, null)
+            response()->format($errors, null, null)
         );
     }
 }

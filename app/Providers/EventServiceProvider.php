@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use App\Events\RegistrationProccesed;
 use App\Listeners\SendRegistrationEmail;
+use App\Events\FileExported;
+use App\Listeners\LogFileExport;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 

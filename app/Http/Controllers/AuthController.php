@@ -35,9 +35,9 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $data = $request->validated();
-       
+        $data = $request->validated();     
         $user = $this->store($data);
+
         Event::dispatch(new RegistrationProccesed($user));
         return response()->format('You are registred! Please confirm on your mail.', null, null);
     }
@@ -50,11 +50,12 @@ class AuthController extends Controller
                 $user->$key = Hash::make($data['password']);
             }
             $user->$key = $value;
-        }
+        }           
         $user->contract_start_date = now();
         $user->contract_end_date = now()->addYear(); 
         $user->remember_token = Str::random(10);
         $user->save();
+
         return $user;
     }
 
@@ -64,7 +65,8 @@ class AuthController extends Controller
         $user->verified = true;
         $user->email_verified_at = now();
         $user->save();
-        Redirect::to('http://127.0.0.1:8000/api/login');
+
+        Redirect::route('login');
         return response()->format('Email verified!', null, null);
     }
     

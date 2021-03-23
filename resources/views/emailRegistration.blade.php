@@ -7,10 +7,10 @@
 </head>
 <body>
 
-    <form method="post" action="{{ route('emailVerified', $user->id) }}">
+    <form method="post" action="{{ route('email_verified', $user->id) }}">
         @csrf 
         <label> Click on link to verify </label> <br><br>
-        <a href="{{ URL::route('emailVerified', $user->id) }}"> Verify </a>        
+        <a href="{{ URL::route('email_verified', $user->id) }}"> Verify </a>        
     </form>
 
 </body>
