@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExportController;
 
@@ -18,6 +19,8 @@ Route::get('/email-verify/{id}', [AuthController::class, 'emailVerification'])->
 Route::get('/user/export-csv', [ExportController::class, 'exportCSV'])->middleware('auth:api')->name('export_csv');
 Route::get('/user/export-csv2', [ExportController::class, 'exportCSV2'])->middleware('auth:api')->name('export_csv2');
 Route::get('/user/export-pdf', [ExportController::class, 'exportPDF'])->middleware('auth:api')->name('export_pdf');
+
+Route::get('/user/contract', [Controller::class, 'userContract'])->middleware('auth:api')->name('user_contract');
 
 
 

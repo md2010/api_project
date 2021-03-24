@@ -38,4 +38,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $filters->apply($query);
     }
 
+    public function getContractAttribute()
+    {
+        return "{$this->contract_start_date} - {$this->contract_end_date}";
+    }
+
+    public function setTypeAttribute($value)
+    {
+        $this->attributes['type'] = ucfirst($value);
+    }
 }

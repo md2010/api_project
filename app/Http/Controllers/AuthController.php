@@ -13,6 +13,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Events\RegistrationProccesed;
 use Event;
+use App\Jobs\SendRegistrationEmail;
 
 class AuthController extends Controller
 {
@@ -38,7 +39,8 @@ class AuthController extends Controller
         $data = $request->validated();     
         $user = $this->store($data);
 
-        Event::dispatch(new RegistrationProccesed($user));
+        //Event::dispatch(new RegistrationProccesed($user));
+        SendRegistrationEmail::dispatch($user);
         return response()->format('You are registred! Please confirm on your mail.', null, null);
     }
 

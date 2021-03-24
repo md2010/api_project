@@ -12,21 +12,23 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FileSending;
 use PDF;
+use App\Jobs\SendExportFile;
 
 class ExportController extends Controller
 {
     public function exportCSV(Request $request, UserFilter $filters)
     {
         if(! $this->checkCache()) {
-            return  response()->format('You can not export now.', null, null);
-        }
+            return  response()->format('You can not export twice in a minute.', null, null);
+        } 
 
         $users = User::filter($filters)->get();
         $fileName = 'users.csv';
         $fullPath = public_path($fileName);  //saves in app/public
         $file = Excel::store(new UsersExport($users), $fileName, 'public');
 
-        Mail::to(auth()->user()->email)->send(new FileSending($fullPath));
+        //Mail::to(auth()->user()->email)->send(new FileSending($fullPath));
+        SendExportFile::dispatch($fullPath);
         
         return response()->format('File has been sent to your email!', null, null);
     }
