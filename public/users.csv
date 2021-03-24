@@ -98,3 +98,7 @@
 "98","Danika Greenholt","lina.cassin@example.org","2021-03-23T09:33:15.000000Z","2014-10-02","2015-01-05","premium","","2021-03-23T09:33:16.000000Z","2021-03-23T09:33:16.000000Z"
 "99","Rozella Renner","afranecki@example.net","2021-03-23T09:33:16.000000Z","2019-11-01","2020-02-10","premium","","2021-03-23T09:33:16.000000Z","2021-03-23T09:33:16.000000Z"
 "100","Orion Prosacco","kay.borer@example.net","2021-03-23T09:33:16.000000Z","2018-09-09","2019-08-09","premium","","2021-03-23T09:33:16.000000Z","2021-03-23T09:33:16.000000Z"
+"103","john smith","johns@example.com","","2021-03-24","2022-03-24","Normal","","2021-03-24T08:45:15.000000Z","2021-03-24T08:45:15.000000Z"
+
+LOG INFO: Email with exported users sent.
+LOG INFO: Email with exported users sent.

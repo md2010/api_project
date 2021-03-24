@@ -1,0 +1,4 @@
+
+LOG INFO: Email with exported users sent.
+LOG INFO: Email with exported users sent.
+LOG ERROR: Export not available twice in a minute

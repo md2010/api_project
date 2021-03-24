@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\FileSending;
 use PDF;
 use App\Jobs\SendExportFile;
+use Facades\MD\Logger\Logger;
 
 class ExportController extends Controller
 {
     public function exportCSV(Request $request, UserFilter $filters)
     {
         if(! $this->checkCache()) {
+            Logger::setFilePath(public_path('logFile.txt'));
+            Logger::error('Export not available twice in a minute');
             return  response()->format('You can not export twice in a minute.', null, null);
         } 
 
@@ -29,7 +32,10 @@ class ExportController extends Controller
 
         //Mail::to(auth()->user()->email)->send(new FileSending($fullPath));
         SendExportFile::dispatch($fullPath);
-        
+
+        Logger::setFilePath(public_path('logFile.txt'));
+        Logger::info('Email with exported users sent.');
+
         return response()->format('File has been sent to your email!', null, null);
     }
 

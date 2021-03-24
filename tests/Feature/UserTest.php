@@ -7,11 +7,12 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class UserTest extends TestCase
 {
-    public function test_if_user_created_successfully() {
-    
+    /* public function test_if_user_created_successfully() 
+    {    
         $data = [
             'name' => 'john smith',
             'email' => 'johns@example.com',          
@@ -26,4 +27,31 @@ class UserTest extends TestCase
         ]);
         $this->assertDatabaseHas('users', $data);
     }
+ 
+    public function test_email_sending_time_with_queue()  //0.28s
+    {
+        $user = User::findOrFail(1);
+        $this->actingAs($user, 'api');
+
+        $this->json('get', 'api/user/export-csv')
+             ->assertStatus(200)
+             ->assertJson([ 
+                'message' => 'File has been sent to your email!',
+                null => null                  
+        ]);
+    }
+ */
+    public function test_email_sending_time_with_mail_to()
+    {
+        $user = User::findOrFail(1);
+        $this->actingAs($user, 'api');
+
+        $this->json('get', 'api/user/export-csv')
+             ->assertStatus(200)
+             ->assertJson([ 
+                'message' => 'File has been sent to your email!',
+                null => null                  
+        ]);
+    }
+        
 }
